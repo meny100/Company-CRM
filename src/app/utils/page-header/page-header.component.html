@@ -1,0 +1,26 @@
+<div class="row mt-5">
+  <div class="col-12">
+    <div class="jumbotron pt-3 pb-3">
+      <h3>
+        <ng-container *ngIf="headerIcon; then gotHeaderIcon; else noHeaderIcon">
+        </ng-container>
+
+        <span> {{ headerTitle }}</span>
+      </h3>
+      <p class="lead">{{ headerDescription }}</p>
+    </div>
+  </div>
+</div>
+
+<ng-template #noHeaderIcon>
+  <i class="fas fa-exclamation-circle"></i>
+</ng-template>
+
+<ng-template #gotHeaderIcon>
+  <i
+  [ngStyle]="{
+    opacity: '0.8'
+  }"
+  [ngClass]="headerIcon"
+  ></i>
+</ng-template>

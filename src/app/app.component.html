@@ -1,0 +1,18 @@
+<flash-messages class="fixed-top" style="z-index: 99"></flash-messages>
+<header>
+  <app-topnav [email]="userEmail" [loggedin]="isLogin"></app-topnav>
+</header>
+<div class="container-fluid mt-5">
+  <main>
+    <div class="row">
+      <div class="col-2 pl-0 fixed-bottom">
+        <app-sidenav [loggedin]="isLogin"></app-sidenav>
+      </div>
+      <div class="col-2"></div>
+      <div class="col-10">
+        <router-outlet></router-outlet>
+        <app-footer [loggedin]="isLogin"></app-footer>
+      </div>
+    </div>
+  </main>
+</div>

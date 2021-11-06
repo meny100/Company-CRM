@@ -1,0 +1,170 @@
+<app-page-header
+  [headerDescription]="headerDescription"
+  [headerIcon]="headerIcon"
+  [headerTitleRocks]="headerTitle"
+>
+</app-page-header>
+
+<form (ngSubmit)="onSubmitRF()" [formGroup]="RFG">
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <label for="firstName"
+        ><span class="text-danger">*</span>First Name</label
+      >
+      <input
+        [ngClass]="{
+          'is-invalid':
+            RFG.get('firstName')?.errors && RFG.get('firstName')?.dirty
+        }"
+        type="text"
+        id="firstName"
+        class="form-control"
+        name="firstName"
+        formControlName="firstName"
+      />
+      <div
+        [hidden]="!RFG.get('firstName')?.errors?.minlength"
+        class="invalid-feedback"
+      >
+        first name minimum length must be 2 characters
+      </div>
+      <div
+        [hidden]="!RFG.get('firstName')?.errors?.required"
+        class="invalid-feedback"
+      >
+        First name is required
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="lastName"><span class="text-danger">*</span> Last name</label>
+      <input
+        [ngClass]="{
+          'is-invalid':
+            RFG.get('lastName')?.errors && RFG.get('lastName')?.touched
+        }"
+        formControlName="lastName"
+        name="lastName"
+        type="text"
+        class="form-control"
+        id="lastName"
+      />
+      <div
+        [hidden]="!RFG.get('lastName')?.errors?.required"
+        class="invalid-feedback"
+      >
+        Last name is required
+      </div>
+      <div
+        [hidden]="!RFG.get('lastName')?.errors?.minlength"
+        class="invalid-feedback"
+      >
+        Last name minlength must be 2 chars
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <label for="customerEmail"
+        ><span class="text-danger">*</span> Email</label
+      >
+      <input
+        type="email"
+        id="customerEmail"
+        class="form-control"
+        name="email"
+        formControlName="email"
+        [ngClass]="{
+          'is-invalid': RFG.get('email')?.errors && RFG.get('email')?.touched
+        }"
+      />
+      <div
+        [hidden]="!RFG.get('email')?.errors?.required"
+        class="invalid-feedback"
+      >
+        Valid email is required
+      </div>
+      <div [hidden]="!RFG.get('email')?.errors?.email" class="invalid-feedback">
+        Valid email is required
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="customerPhone"
+        ><span class="text-danger">*</span> Phone</label
+      >
+      <input
+        type="tel"
+        id="customerPhone"
+        class="form-control"
+        name="phone"
+        formControlName="phone"
+        [ngClass]="{
+          'is-invalid': RFG.get('phone')?.errors && RFG.get('phone')?.touched
+        }"
+      />
+      <div
+        [hidden]="!RFG.get('phone')?.errors?.required"
+        class="invalid-feedback"
+      >
+        Phone is required
+      </div>
+      <div
+        [hidden]="!RFG.get('phone')?.errors?.pattern"
+        class="invalid-feedback"
+      >
+        A valid phone number is required
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 mb-3">
+      <label for="customerAddress">Address</label>
+
+      <div class="dropdown" *ngIf="this.countriesService.countries$ | async as countries">
+        <button
+          class="btn btn-secondary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          {{getNameFromCoutriesArr(countries)}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a
+            class="dropdown-item"
+
+            *ngFor="let country of countries"
+            (click)="onUpdateAddress(country.name)"
+          >
+            {{ country.name }}
+            <img height="20" width="30" [src]="country.flag"><img>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 mb-3">
+      <label for="customerNotes">Notes</label>
+      <textarea
+        class="form-control"
+        name="notes"
+        id="customerNotes"
+        formControlName="notes"
+        cols="30"
+        rows="10"
+      ></textarea>
+    </div>
+  </div>
+  <div class="p-3 ml-5">
+    <a href="" routerLink="/customers" class="btn btn-secondary">Cancel</a>
+    <input
+      [disabled]="!RFG.valid"
+      class="btn btn-primary ml-3"
+      type="submit"
+      name="submit"
+      value="Save"
+    />
+  </div>
+</form>

@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-4">
+    <form
+      novalidate
+      autocomplete="off"
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">
+          COMPANY
+          <i class="fas fa-angle-double-up"></i>
+          CRM
+        </h1>
+        <p>Login with your account</p>
+      </div>
+
+      <div class="form-group mb-4">
+        <div class="alert alert-danger" *ngIf="errorMassage" role="alert">
+          {{ errorMassage }}
+        </div>
+        <div class="form-group">
+          <input
+            type="email"
+            placeholder="Email"
+            id="email"
+            class="form-control"
+            formControlName="email"
+            [ngClass]="{
+              'is-invalid':
+                loginForm.get('email')?.errors &&
+                loginForm.get('email')?.touched
+            }"
+          />
+          <div
+            [hidden]="!loginForm.get('email')?.errors?.required"
+            class="invalid-feedback"
+          >
+            value is required
+          </div>
+          <div
+            [hidden]="!loginForm.get('email')?.errors?.email"
+            class="invalid-feedback"
+          >
+            valid email is required
+          </div>
+        </div>
+      </div>
+      <div class="form-group mb-4">
+        <div class="form-group">
+          <input
+            type="password"
+            placeholder="password"
+            id="password"
+            class="form-control"
+            formControlName="password"
+            [ngClass]="{
+              'is-invalid':
+                loginForm.get('password')?.errors &&
+                loginForm.get('password')?.touched
+            }"
+          />
+          <div
+            [hidden]="!loginForm.get('password')?.errors?.required"
+            class="invalid-feedback"
+          >
+            value is required
+          </div>
+          <div
+            [hidden]="!loginForm.get('password')?.errors?.minLength"
+            class="invalid-feedback"
+          >
+            valid password is required
+          </div>
+        </div>
+      </div>
+      <button
+        type="submit"
+        [disabled]="!loginForm.valid"
+        class="btn btn-lg btn-primary btn-block"
+      >
+        SignIn
+      </button>
+
+    </form>
+
+    <div class="container text-center mt-5">
+      <p class="h6">If you have not an account press here to sign up</p>
+      <button class="btn btn-info btn-sm" (click)="routeToSignup()">SignUp</button>
+
+      <p class="mt-5 mb-3 text-muted text-center">&copy; 2020-2056</p>
+    </div>
+  </div>
+</div>

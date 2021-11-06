@@ -1,0 +1,58 @@
+<app-page-header
+  [headerDescription]="headerDescription"
+  [headerIcon]="headerIcon"
+  [headerTitleRocks]="headerTitle"
+>
+</app-page-header>
+
+<div class="container">
+  <!-- search by name -->
+  <h3>Company Employees Contect Table</h3>
+  <div class="row">
+    <div class="col-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by first name"
+        [(ngModel)]="term"
+        (input)="searchByName()"
+      />
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-12">
+      <table class="table table-borded mt-3">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Birthday</th>
+            <th>Phones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let contact of contacts$ | async">
+            <td>
+              <img
+                width="30"
+                class="mr-3"
+                src="assets/images/contacts/{{ contact.avatar }}"
+                alt=""
+              />
+              {{ gender(contact.name, contact.isGuy) }}
+            </td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.birthday }}</td>
+            <td>
+              <ul>
+                <li *ngFor="let phone of contact.phones">
+                  {{ phone }}
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

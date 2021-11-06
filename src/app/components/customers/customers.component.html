@@ -1,0 +1,49 @@
+<app-page-header
+  [headerDescription]="headerDescription"
+  [headerIcon]="headerIcon"
+  [headerTitleRocks]="headerTitle"
+>
+</app-page-header>
+
+<!-- search by first name, last name and phone component -->
+<div class="container mb-2">
+  <div class="row">
+    <div class="col-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by first name"
+        [(ngModel)]="term"
+        (input) = "searchByFirstName()"
+      />
+    </div>
+    <div class="col-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by last name"
+        [(ngModel)]="term"
+        (input) = "searchByLastName()"
+      />
+    </div>
+    <div class="col-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search Customer by phone"
+        #input
+      />
+    </div>
+    <div class="col-3">
+      <a href="" routerLink="new" class="btn btn-primary"
+        ><i class="fas fa-plus-circle"></i>Add a new customer</a
+      >
+    </div>
+  </div>
+</div>
+
+<app-customers-table
+  (onDeleteCustomer)="remove($event)"
+  [customersAtChild]="customers$ | async"
+>
+</app-customers-table>
